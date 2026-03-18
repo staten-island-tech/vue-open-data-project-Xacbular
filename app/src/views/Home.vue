@@ -7,18 +7,18 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import PokemonCard from '@/components/PokemonCard.vue'
-const pokemon = ref([])
-async function getPokemon() {
+const crime = ref([])
+async function getCrime() {
   try {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151&offset=0')
+    const response = await fetch('https://data.cityofnewyork.us/resource/uip8-fykc.json?$limit=100')
     const data = await response.json()
-    pokemon.value = data.results
+    crime.value = data
   } catch (error) {
     console.log(error)
   }
 }
 onMounted(() => {
-  getPokemon()
+  getCrime()
 })
 </script>
 

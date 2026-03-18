@@ -1,6 +1,6 @@
 <template>
   <router-link class="card" :to="pkmnPath">
-    <h2>{{ pokemon.name }}</h2>
+    <h2>{{ crime.name }}</h2>
     <h3>{{ id }}</h3>
   </router-link>
 </template>
@@ -8,7 +8,7 @@
 <script setup>
 import { computed } from 'vue'
 const props = defineProps({
-  pokemon: {
+  crime: {
     type: Object,
     required: true,
   },

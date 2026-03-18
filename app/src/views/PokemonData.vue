@@ -1,8 +1,7 @@
 <template>
   <div>
-    <h2>{{ pokemon.name }}</h2>
-    <h2>{{ pokemon.types }}</h2>
-    <img :src="pokemon.sprites.front_default" alt="Pokemon image" />
+    <h2>{{ crime.name }}</h2>
+    <h2>{{ crime.types }}</h2>
   </div>
 </template>
 
@@ -10,19 +9,25 @@
 import { onBeforeMount, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 const route = useRoute()
-const pokemon = ref({})
-async function getPokemon(id) {
-  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+const crime = ref({})
+async function getCrime(id) {
+  const response = await fetch(
+    `https://data.cityofnewyork.us/resource/uip8-fykc.json?arrest_key=${id}`,
+  )
   const data = await response.json()
-  pokemon.value = data
+  crime.value = data
 }
 onBeforeMount(() => {
-  getPokemon(route.params.id)
+  getCrime(route.params.id)
 })
 watch(
   () => route.params.id,
-  (newId) => getPokemon(newId),
+  (newId) => getCrime(newId),
 )
 </script>
 
 <style scoped></style>
+
+<!-- const response = await fetch(
+  `https://data.cityofnewyork.us/resource/uip8-fykc.json?arrest_key=${id}`
+); -->
