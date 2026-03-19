@@ -1,24 +1,26 @@
 <template>
   <div class="container">
-    <PokemonCard v-for="(mon, index) in pokemon" :key="mon.name" :pokemon="mon" :id="index + 1" />
+    <ArrestCard v-for="arrest in arrestList" :key="arrest.arrest_key" :arrest="arrest" />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import PokemonCard from '@/components/PokemonCard.vue'
-const crime = ref([])
-async function getCrime() {
+import { ref, onBeforeMount } from 'vue'
+import ArrestCard from '@/components/ArrestCard.vue'
+const arrestList = ref([])
+
+async function getArrests() {
   try {
     const response = await fetch('https://data.cityofnewyork.us/resource/uip8-fykc.json?$limit=100')
     const data = await response.json()
-    crime.value = data
+    arrestList.value = data
   } catch (error) {
-    console.log(error)
+    console.error('Error fetching data:', error)
   }
 }
-onMounted(() => {
-  getCrime()
+
+onBeforeMount(() => {
+  getArrests()
 })
 </script>
 
